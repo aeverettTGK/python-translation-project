@@ -28,7 +28,17 @@ def translate_sequence(rna_sequence, genetic_code):
     str
         A string of the translated amino acids.
     """
-    pass
+    new_seq = ""
+    rna_seq = rna_sequence.upper()
+    if len(rna_seq) >= 3:
+        for i in range(len(rna_seq) - 3 + 1):
+            window = rna_seq[i:i + 3]
+            if window in genetic_code:
+                if genetic_code[window] == "*":
+                    break
+            else:
+                new_seq += genetic_code[window]
+    return new_seq
 
 def get_all_translations(rna_sequence, genetic_code):
     """Get a list of all amino acid sequences encoded by an RNA sequence.
@@ -75,7 +85,11 @@ def get_reverse(sequence):
     >>> get_reverse('AUGC')
     'CGUA'
     """
-    pass
+    reverse_seq = ""
+    if sequence != "":
+        reverse_seq = sequence[::-1]
+        reverse_seq = reverse_seq.upper()
+    return reverse_seq
 
 def get_complement(sequence):
     """Get the complement of a `sequence` of nucleotides.
@@ -89,7 +103,14 @@ def get_complement(sequence):
     >>> get_complement('AUGC')
     'UACG'
     """
-    pass
+    complement_dict = {"A": "U", "U": "A", "C": "G", "G": "C"}
+    complement_seq = ""
+    if sequence != "":
+        for char in sequence.upper():
+            if char in complement_dict.keys():
+                complement_seq += complement_dict[char]
+    complement_seq = complement_seq.upper()
+    return complement_seq
 
 def reverse_and_complement(sequence):
     """Get the reversed and complemented form of a `sequence` of nucleotides.
@@ -104,7 +125,11 @@ def reverse_and_complement(sequence):
     >>> reverse_and_complement('AUGC')
     'GCAU'
     """
-    pass
+    new_seq = ""
+    if sequence != "":
+        new_seq = get_reverse(sequence)
+        new_seq = get_complement(new_seq)
+    return new_seq
 
 def get_longest_peptide(rna_sequence, genetic_code):
     """Get the longest peptide encoded by an RNA sequence.
@@ -134,7 +159,6 @@ def get_longest_peptide(rna_sequence, genetic_code):
         `rna_sequence`.
     """
     pass
-
 
 if __name__ == '__main__':
     genetic_code = {'GUC': 'V', 'ACC': 'T', 'GUA': 'V', 'GUG': 'V', 'ACU': 'T', 'AAC': 'N', 'CCU': 'P', 'UGG': 'W', 'AGC': 'S', 'AUC': 'I', 'CAU': 'H', 'AAU': 'N', 'AGU': 'S', 'GUU': 'V', 'CAC': 'H', 'ACG': 'T', 'CCG': 'P', 'CCA': 'P', 'ACA': 'T', 'CCC': 'P', 'UGU': 'C', 'GGU': 'G', 'UCU': 'S', 'GCG': 'A', 'UGC': 'C', 'CAG': 'Q', 'GAU': 'D', 'UAU': 'Y', 'CGG': 'R', 'UCG': 'S', 'AGG': 'R', 'GGG': 'G', 'UCC': 'S', 'UCA': 'S', 'UAA': '*', 'GGA': 'G', 'UAC': 'Y', 'GAC': 'D', 'UAG': '*', 'AUA': 'I', 'GCA': 'A', 'CUU': 'L', 'GGC': 'G', 'AUG': 'M', 'CUG': 'L', 'GAG': 'E', 'CUC': 'L', 'AGA': 'R', 'CUA': 'L', 'GCC': 'A', 'AAA': 'K', 'AAG': 'K', 'CAA': 'Q', 'UUU': 'F', 'CGU': 'R', 'CGC': 'R', 'CGA': 'R', 'GCU': 'A', 'GAA': 'E', 'AUU': 'I', 'UUG': 'L', 'UUA': 'L', 'UGA': '*', 'UUC': 'F'}
