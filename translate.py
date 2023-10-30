@@ -178,15 +178,13 @@ def get_longest_peptide(rna_sequence, genetic_code):
     """
     rna_seq = rna_sequence.upper()
     longest_peptide = ""
-    for frame in range(6):
-        if frame < 3:
-            rna = rna_seq[frame:]
-            print("RNA: ", rna)
-        else:
-            rna = reverse_and_complement(rna_seq)[frame-3:]
-            print("RNA: ", rna)
-        peptide = translate_sequence(rna, genetic_code)
-        print("Peptide: ", peptide)
+    rev_comp_rna_seq = reverse_and_complement(rna_seq)
+    translations = get_all_translations(rna_seq, genetic_code)
+    for translation in get_all_translations(rev_comp_rna_seq, genetic_code):
+        translations.append(translation)
+    if not translations:
+        return longest_peptide
+    for peptide in translations:
         if len(peptide) > len(longest_peptide):
             longest_peptide = peptide
     return longest_peptide
