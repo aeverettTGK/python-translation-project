@@ -5,7 +5,7 @@ import re
 
 def vet_nucleotide_sequence(sequence):
     """
-    Return None if `sequence` is a valid RNA or DNA sequence, else raise exception. 
+    Return None if `sequence` is a valid RNA or DNA sequence, else raise exception.
 
     Parameters
     ----------
@@ -57,8 +57,9 @@ def vet_nucleotide_sequence(sequence):
     # any valid RNA and DNA sequence strings, respectively (and only strings of
     # RNA and DNA bases).
     # Read the docstring above for additional clues.
-    rna_pattern_str = r'AUCG'
-    dna_pattern_str = r'ATCG'
+    rna_pattern_str = r'[AUCG]*'
+    dna_pattern_str = r'[ATCG]*'
+
     ##########################################################################
 
     rna_pattern = re.compile(rna_pattern_str)
@@ -75,7 +76,7 @@ def vet_nucleotide_sequence(sequence):
 
 def vet_codon(codon):
     """
-    Return None if `codon` is a valid RNA codon, else raise an exception. 
+    Return None if `codon` is a valid RNA codon, else raise an exception.
 
     Parameters
     ----------
@@ -94,7 +95,7 @@ def vet_codon(codon):
     >>> vet_codon('AUG') == None
     True
 
-    lower-case is also vaild 
+    lower-case is also vaild
     >>> vet_codon('aug') == None
     True
 
@@ -119,7 +120,7 @@ def vet_codon(codon):
     # Change `codon_pattern_str` so that it will match any valid codons, and
     # only valid codons.
     # Read the docstring above for additional clues.
-    codon_pattern_str = r'AUG'
+    codon_pattern_str = r'{}'.format(codon)
     ##########################################################################
 
     codon_pattern = re.compile(codon_pattern_str)
@@ -207,7 +208,7 @@ def find_first_orf(sequence,
     # exactly. Change `orf_pattern_str` so that it will match any open reading
     # frame.
     # Read the docstring above for additional clues.
-    orf_pattern_str = r'AUGGUAUAA'
+    orf_pattern_str = r'(?:AUG(?:[ACGU]{3})*?(?:UAA|UAG|UGA))'
     ##########################################################################
 
     # Create the regular expression object
