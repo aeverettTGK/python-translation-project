@@ -210,7 +210,7 @@ def find_first_orf(sequence,
     # Read the docstring above for additional clues.
     start_codons = "|".join(starts)
     stop_codons = "|".join(stops)
-    orf_pattern_str = r'(start_codons)([AUGC]{3})*(stop_codons)'
+    orf_pattern_str = f'({start_codons})([AUGC]{{3}})*({stop_codons})'
     ##########################################################################
 
     # Create the regular expression object
