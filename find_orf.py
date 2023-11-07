@@ -208,10 +208,8 @@ def find_first_orf(sequence,
     # exactly. Change `orf_pattern_str` so that it will match any open reading
     # frame.
     # Read the docstring above for additional clues.
-    if type(starts) == list:
-        start_codons = "|".join(starts)
-    if type(stops) == list:
-        stop_codons = "|".join(stops)
+    start_codons = "|".join(starts)
+    stop_codons = "|".join(stops)
     orf_pattern_str = r'(start_codons)([AUGC]{3})*(stop_codons)'
     ##########################################################################
 
